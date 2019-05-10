@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Products</title>
+    <th:block th:include="layout/header"></th:block>
+</head>
+<body>
+    <div class="container">
+        <div th:if="${not #lists.isEmpty(products)}">
+            <h2>All Products</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Price</th>
+                        <th scope="col" colspan="3">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.name}">Name</td>
+                        <td th:text="${product.description}">Description</td>
+                        <td th:text="${product.type}">Type</td>
+                        <td th:text="${product.category}">Category</td>
+                        <td th:text="${product.price}">Price</td>
+                        <td><a th:href="${'/products/edit/' + product.id}" class="btn btn btn-outline-primary">Edit</a></td>
+                        <td>
+                            <form th:object="${product}" th:action="${'/products/delete/' + product.id}" th:method="delete">
+                                <button class="btn btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
